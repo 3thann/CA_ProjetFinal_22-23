@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.app')
 
-<head>
-    <?php include('layout/head.php'); ?>
-</head>
-
-<body>
-    <!-- Navbar Start -->
-    <?php include('layout/header.php'); ?>
-    <!-- Navbar End -->
-
+@section('content')
 
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
@@ -25,24 +16,36 @@
     <!-- Page Header End -->
 
 
-    <!-- Connection Start -->
+    <!-- Reservation Start -->
     <div class="container-fluid py-5">
         <div class="container">
             <div class="reservation position-relative overlay-top overlay-bottom">
                 <div class="col-lg-6">
                     <div class="text-center p-5" style="background: rgba(51, 33, 29, .8);">
-                        <h1 class="text-white mb-4 mt-5">Reset your password</h1>
+                        <h1 class="text-white mb-4 mt-5">Connection</h1>
                         <form class="mb-5">
                             <div class="form-group">
-                                <input type="password" class="form-control bg-transparent border-primary p-4" placeholder="New password"
+                                <input type="text" class="form-control bg-transparent border-primary p-4" placeholder="Name"
                                     required="required" />
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control bg-transparent border-primary p-4" placeholder="Confirm your password"
+                                <input type="email" class="form-control bg-transparent border-primary p-4" placeholder="Email"
                                     required="required" />
                             </div>
+                            <div class="form-group">
+                                <input type="tel" class="form-control bg-transparent border-primary p-4" placeholder="Mobile Number"
+                                    required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control bg-transparent border-primary p-4" placeholder="Password"
+                                    required="required" />
+                            </div>
+
                             <div>
-                                <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">Confirm</button>
+                                <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">Create account</button>
+                            </div>
+                            <div class="form-group">
+                                <p style='padding-top: 20px'>Already have an account? <a href="{{ route('connection') }}"> Connection</a>.</p>
                             </div>
                         </form>
                     </div>
@@ -50,15 +53,6 @@
             </div>
         </div>
     </div>
-<!-- Connection End -->
+<!-- Reservation End -->
 
-
-    <!-- Footer Start -->
-    <?php include('layout/footer.php'); ?>
-    <!-- Footer End -->
-
-    <!-- JavaScript Libraries -->
-    <?php include('layout/import_js.php'); ?>
-</body>
-
-</html>
+@endsection

@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.app')
 
-<head>
-    <?php include('layout/head.php'); ?>
-</head>
-
-<body>
-    <!-- Navbar Start -->
-    <?php include('layout/header.php'); ?>
-    <!-- Navbar End -->
-
+@section('content')
 
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
@@ -92,12 +83,4 @@
     </div>
     <!-- Contact End -->
 
-    <!-- Footer Start -->
-    <?php include('layout/footer.php'); ?>
-    <!-- Footer End -->
-
-    <!-- JavaScript Libraries -->
-    <?php include('layout/import_js.php'); ?>
-</body>
-
-</html>
+@endsection

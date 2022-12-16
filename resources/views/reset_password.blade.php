@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layout.app')
 
-<head>
-    <?php include('layout/head.php'); ?>
-</head>
-
-<body>
-    <!-- Navbar Start -->
-    <?php include('layout/header.php'); ?>
-    <!-- Navbar End -->
-
+@section('content')
 
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
@@ -31,18 +22,18 @@
             <div class="reservation position-relative overlay-top overlay-bottom">
                 <div class="col-lg-6">
                     <div class="text-center p-5" style="background: rgba(51, 33, 29, .8);">
-                        <h1 class="text-white mb-4 mt-5">Forgot your password ?</h1>
-                        <p>Enter your email address below, we will send you an email with instructions.</p>
+                        <h1 class="text-white mb-4 mt-5">Reset your password</h1>
                         <form class="mb-5">
                             <div class="form-group">
-                                <input type="email" class="form-control bg-transparent border-primary p-4" placeholder="Email"
+                                <input type="password" class="form-control bg-transparent border-primary p-4" placeholder="New password"
+                                    required="required" />
+                            </div>
+                            <div class="form-group">
+                                <input type="password" class="form-control bg-transparent border-primary p-4" placeholder="Confirm your password"
                                     required="required" />
                             </div>
                             <div>
-                                <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">Reset my password</button>
-                            </div>
-                            <div class="form-group">
-                                <p style='padding-top: 20px; font-size: 12px;'><a href="connection.php">Return</a>.</p>
+                                <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">Confirm</button>
                             </div>
                         </form>
                     </div>
@@ -52,13 +43,4 @@
     </div>
 <!-- Connection End -->
 
-
-    <!-- Footer Start -->
-    <?php include('layout/footer.php'); ?>
-    <!-- Footer End -->
-
-    <!-- JavaScript Libraries -->
-    <?php include('layout/import_js.php'); ?>
-</body>
-
-</html>
+@endsection
