@@ -20,70 +20,29 @@
     <div class="container-fluid pt-5">
         <div class="container">
             <div class="section-title">
-                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Menu & Pricing</h4>
-                <h1 class="display-4">Competitive Pricing</h1>
+                <h4 class="text-primary text-uppercase" style="letter-spacing: 5px;">Menu</h4>
+                <h1 class="display-4">Our burgers</h1>
             </div>
-            <div class="row">
-                <div class="row align-items-center mb-5">
-                    <div class="col-4 col-sm-3">
-                        <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-1.jpg" alt="">
-                        <h5 class="menu-price">$5</h5>
+
+            <div class="box-menu">
+
+                @foreach($recipesingredients as $recipeingredient)
+
+                    <div class="box-perso">
+                        <a href="#" style="text-decoration: none;">
+                        <div class="box-burger border-menu align-items-center">
+                                <img class="w-perso rounded-circle" src="img/{{ $recipeingredient->recipe->image }}" alt="">
+                            <div class="col-8 col-sm-9">
+                                <h4>{{ $recipeingredient->recipe->name }}</h4>
+                                <p class="m-0">{{ $recipeingredient->ingredient->name }}</p>
+                            </div>
+                        </div>
+                        </a>
                     </div>
-                    <div class="col-8 col-sm-9">
-                        <h4>Burger name</h4>
-                        <p class="m-0">Ingedient</p>
-                    </div>
-                </div>
-                <div class="row align-items-center mb-5">
-                    <div class="col-4 col-sm-3">
-                        <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-2.jpg" alt="">
-                        <h5 class="menu-price">$7</h5>
-                    </div>
-                    <div class="col-8 col-sm-9">
-                        <h4>Burger name</h4>
-                        <p class="m-0">Ingedient</p>
-                    </div>
-                </div>
-                <div class="row align-items-center mb-5">
-                    <div class="col-4 col-sm-3">
-                        <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-3.jpg" alt="">
-                        <h5 class="menu-price">$9</h5>
-                    </div>
-                    <div class="col-8 col-sm-9">
-                        <h4>Burger name</h4>
-                        <p class="m-0">Ingedient</p>
-                    </div>
-                </div>
-                <div class="row align-items-center mb-5">
-                    <div class="col-4 col-sm-3">
-                        <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-1.jpg" alt="">
-                        <h5 class="menu-price">$5</h5>
-                    </div>
-                    <div class="col-8 col-sm-9">
-                        <h4>Burger name</h4>
-                        <p class="m-0">Ingedient</p>
-                    </div>
-                </div>
-                <div class="row align-items-center mb-5">
-                    <div class="col-4 col-sm-3">
-                        <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-2.jpg" alt="">
-                        <h5 class="menu-price">$7</h5>
-                    </div>
-                    <div class="col-8 col-sm-9">
-                        <h4>Burger name</h4>
-                        <p class="m-0">Ingedient</p>
-                    </div>
-                </div>
-                <div class="row align-items-center mb-5">
-                    <div class="col-4 col-sm-3">
-                        <img class="w-100 rounded-circle mb-3 mb-sm-0" src="img/menu-3.jpg" alt="">
-                        <h5 class="menu-price">$9</h5>
-                    </div>
-                    <div class="col-8 col-sm-9">
-                        <h4>Burger name</h4>
-                        <p class="m-0">Ingedient</p>
-                    </div>
-                </div>
+                <br>
+
+                @endforeach
+
             </div>
         </div>
     </div>

@@ -17,8 +17,10 @@ class RecipesFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->sentence(rand(1,3)),
+            'name' => fake()->sentence(1),
             'price' => fake()->numberBetween(1, 15),
+            'image' => 'menu-1.jpg',
+            'top_recipes' => rand(0,1) < 0.5,
         ];
     }
 }

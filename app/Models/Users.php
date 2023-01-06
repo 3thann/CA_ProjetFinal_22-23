@@ -16,6 +16,6 @@ class Users extends Model
         'password',
         'email',
         'phone_number',
-        'user_type',
+        'is_admin',
     ];
 }

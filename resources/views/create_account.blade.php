@@ -22,22 +22,23 @@
             <div class="reservation position-relative overlay-top overlay-bottom">
                 <div class="col-lg-6">
                     <div class="text-center p-5" style="background: rgba(51, 33, 29, .8);">
-                        <h1 class="text-white mb-4 mt-5">Connection</h1>
-                        <form class="mb-5">
+                        <h1 class="text-white mb-4 mt-5">Create your account</h1>
+                        <form action="{{ route('store') }}" class="mb-5" method="POST">
+                            @csrf
                             <div class="form-group">
-                                <input type="text" class="form-control bg-transparent border-primary p-4" placeholder="Name"
+                                <input type="text" class="form-control bg-transparent border-primary p-4" name="name" placeholder="Name"
                                     required="required" />
                             </div>
                             <div class="form-group">
-                                <input type="email" class="form-control bg-transparent border-primary p-4" placeholder="Email"
+                                <input type="email" class="form-control bg-transparent border-primary p-4" name="email" placeholder="Email"
                                     required="required" />
                             </div>
                             <div class="form-group">
-                                <input type="tel" class="form-control bg-transparent border-primary p-4" placeholder="Mobile Number"
+                                <input type="tel" class="form-control bg-transparent border-primary p-4" name="tel" placeholder="Mobile Number"
                                     required="required" />
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control bg-transparent border-primary p-4" placeholder="Password"
+                                <input type="password" class="form-control bg-transparent border-primary p-4" name="password" placeholder="Password"
                                     required="required" />
                             </div>
 

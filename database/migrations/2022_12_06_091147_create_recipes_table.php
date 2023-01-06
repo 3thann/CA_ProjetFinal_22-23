@@ -16,7 +16,9 @@ return new class extends Migration
         Schema::create('recipes', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->float('price')->nullable();
+            $table->float('price');
+            $table->string('image');
+            $table->boolean('top_recipes');
             $table->timestamps();
         });
     }

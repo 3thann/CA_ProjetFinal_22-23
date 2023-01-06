@@ -23,7 +23,7 @@ class UsersFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'phone_number' => fake()->mobileNumber(),
-            'user_type' => rand(0,1) < 0.5,
+            'is_admin' => rand(0,1) < 0.5,
         ];
     }
 }

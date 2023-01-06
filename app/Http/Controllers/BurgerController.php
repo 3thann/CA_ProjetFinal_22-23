@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Recipes;
+use App\Models\RecipesIngredients;
 
-class Burger extends Controller
+class BurgerController extends Controller
 {
     public function index()
     {
@@ -18,7 +20,8 @@ class Burger extends Controller
 
     public function menu()
     {
-        return view('menu');
+        $recipesingredients = RecipesIngredients::all();
+        return view('menu', compact("recipesingredients"));
     }
 
     public function reservation()

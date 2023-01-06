@@ -1,10 +1,3 @@
-/******* Bootstrap Theming ********/
-/*!
- * Bootstrap v4.5.3 (https://getbootstrap.com/)
- * Copyright 2011-2020 The Bootstrap Authors
- * Copyright 2011-2020 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -632,9 +625,43 @@ pre code {
 
 .row {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: wrap;
   margin-right: -15px;
   margin-left: -15px;
+}
+
+.box-menu {
+  display: flex;
+  flex-flow: wrap;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.box-perso {
+  display: block;
+  width: 46%;
+  margin: 20px;
+}
+
+/* .box-perso:hover {
+  background-color: #EEEEEE;
+} */
+
+.box-burger {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.border-menu {
+  border: solid #020101;
+  padding: 30px;
+  transition-duration: .1s;
+}
+
+.border-menu:hover {
+  border: thick double #020101;
+  padding: 27px;
 }
 
 .no-gutters {
@@ -7270,6 +7297,10 @@ button.bg-dark:focus {
   width: 100% !important;
 }
 
+.w-perso {
+  width: 150px;
+}
+
 .w-auto {
   width: auto !important;
 }
@@ -9174,6 +9205,10 @@ button.bg-dark:focus {
 
 .text-center {
   text-align: center !important;
+}
+
+.text-poppins {
+  font-family: 'Poppins', sans-serif;
 }
 
 @media (min-width: 576px) {

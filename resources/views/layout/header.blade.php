@@ -2,7 +2,7 @@
 <div class="container-fluid p-0 nav-bar">
     <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
         <a href="{{ route('index') }}" class="navbar-brand px-lg-4 m-0">
-            <h1 class="m-0 display-4 text-white">Burger 75</h1>
+            <h1 class="m-0 display-4 text-white text-poppins">Burger 75</h1>
         </a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
