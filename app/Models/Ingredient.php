@@ -5,9 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\RecipesIngredients;
-
-class Ingredients extends Model
+class Ingredient extends Model
 {
     use HasFactory;
    
@@ -17,6 +15,6 @@ class Ingredients extends Model
 
     public function recipeingredient() 
     {
-        return $this->hasMany(RecipesIngredients::class, "ingredient_id");
+        return $this->hasMany(RecipeIngredient::class, "ingredient_id");
     }
 }

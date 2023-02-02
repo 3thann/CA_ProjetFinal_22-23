@@ -630,40 +630,6 @@ pre code {
   margin-left: -15px;
 }
 
-.box-menu {
-  display: flex;
-  flex-flow: wrap;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.box-perso {
-  display: block;
-  width: 46%;
-  margin: 20px;
-}
-
-/* .box-perso:hover {
-  background-color: #EEEEEE;
-} */
-
-.box-burger {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.border-menu {
-  border: solid #020101;
-  padding: 30px;
-  transition-duration: .1s;
-}
-
-.border-menu:hover {
-  border: thick double #020101;
-  padding: 27px;
-}
-
 .no-gutters {
   margin-right: 0;
   margin-left: 0;
@@ -1917,7 +1883,7 @@ pre code {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .form-control {
+  .groupcontrol {
     transition: none;
   }
 }

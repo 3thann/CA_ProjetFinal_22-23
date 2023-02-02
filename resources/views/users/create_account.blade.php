@@ -7,7 +7,7 @@
         <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
             <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Connection</h1>
             <div class="d-inline-flex mb-lg-5">
-                <p class="m-0 text-white"><a class="text-white" href="index.php">Home</a></p>
+                <p class="m-0 text-white"><a class="text-white" href="{{ route('generics.index') }}">Home</a></p>
                 <p class="m-0 text-white px-2">/</p>
                 <p class="m-0 text-white">Connection</p>
             </div>
@@ -23,7 +23,7 @@
                 <div class="col-lg-6">
                     <div class="text-center p-5" style="background: rgba(51, 33, 29, .8);">
                         <h1 class="text-white mb-4 mt-5">Create your account</h1>
-                        <form action="{{ route('store') }}" class="mb-5" method="POST">
+                        <form action="{{ route('users.create') }}" class="mb-5" method="POST">
                             @csrf
                             <div class="form-group">
                                 <input type="text" class="form-control bg-transparent border-primary p-4" name="name" placeholder="Name"
@@ -46,7 +46,7 @@
                                 <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">Create account</button>
                             </div>
                             <div class="form-group">
-                                <p style='padding-top: 20px'>Already have an account? <a href="{{ route('connection') }}"> Connection</a>.</p>
+                                <p style='padding-top: 20px'>Already have an account? <a href="{{ route('users.connection') }}"> Connection</a>.</p>
                             </div>
                         </form>
                     </div>

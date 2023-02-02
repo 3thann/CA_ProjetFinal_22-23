@@ -45,7 +45,7 @@
                 <div class="col-lg-4 py-0 py-lg-5">
                     <h1 class="mb-3">Our Story</h1>
                     <p class="mb-3">In the heart of Paris, creativity and simplicity go hand in hand in the kitchens of the restaurant Reste au 75, and the charm of the setting sublimates everything: sit down in the dining room to share a great culinary moment! Our menu is made from fresh and local products to offer you modern and tasty French cuisine. Book your table quickly!</p>
-                    <a href="{{ route('about') }}" class="btn btn-secondary font-weight-bold py-2 px-4 mt-2">Learn More</a>
+                    <a href="{{ route('generics.about') }}" class="btn btn-secondary font-weight-bold py-2 px-4 mt-2">Learn More</a>
                 </div>
                 <div class="col-lg-4 py-5 py-lg-0" style="min-height: 500px;">
                     <div class="position-relative h-100">
@@ -58,7 +58,7 @@
                     <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Quality products</h5>
                     <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Short circuit</h5>
                     <h5 class="mb-3"><i class="fa fa-check text-primary mr-3"></i>Respect for the environment</h5>
-                    <a href="{{ route('about') }}" class="btn btn-primary font-weight-bold py-2 px-4 mt-2">Learn More</a>
+                    <a href="{{ route('generics.about') }}" class="btn btn-primary font-weight-bold py-2 px-4 mt-2">Learn More</a>
                 </div>
             </div>
         </div>
