@@ -40,6 +40,12 @@
                     </div>
                 </span>
             </div>
+            <form action="{{ route('menu.destroy', $recipeingredient[0]->recipe->id) }}" class="mb-5" method="POST">
+                @csrf
+                @method("delete")
+                <input type="hidden" name="recipe_id" value="{{ $recipeingredient[0]->recipe->id }}">
+                <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">Delete recipe</button>
+            </form>
         </div>
     </div>
     <!-- Menu End -->

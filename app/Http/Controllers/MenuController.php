@@ -48,7 +48,13 @@ class MenuController extends Controller
             $recipeingredient->save();
             $recipeingredient = null;
         }
-
         return redirect()->route('menu.menu');
+    }
+
+    public function destroy(Request $request)
+    {
+        RecipeIngredient::where('recipe_id', $request->get('recipe_id'))->delete();
+        Recipe::destroy($request->get("recipe_id"));
+        return redirect()->route("menu.menu");
     }
 }
