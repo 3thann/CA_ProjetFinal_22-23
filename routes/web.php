@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GenericsController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\RecipeController;
+use App\Http\Controllers\IngredientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,13 +24,20 @@ Route::get('/about', [GenericsController::class, 'about'])->name("generics.about
 Route::get('/reservation', [GenericsController::class, 'reservation'])->name("generics.reservation");
 Route::get('/contact', [GenericsController::class, 'contact'])->name("generics.contact");
 
-Route::get('/menu', [MenuController::class, 'menu'])->name("menu.menu");
-Route::get('/menu/{id}', [MenuController::class, 'recipe'])->name("menu.recipe");
-Route::get('/create-recipe', [MenuController::class, 'create_recipe'])->name("menu.create_recipe");
-Route::post('/create-recipe', [MenuController::class, 'store'])->name("menu.create");
-Route::get('/recipe/{id}/edit', [MenuController::class, 'edit'])->name("menu.edit");
-Route::put('/recipe/{id}', [MenuController::class, 'update'])->name("menu.update");
-Route::delete('/menu', [MenuController::class, 'destroy'])->name("menu.destroy");
+Route::get('/menu', [RecipeController::class, 'index'])->name("recipe.index");
+Route::get('/recipe/{id}', [RecipeController::class, 'show'])->name("recipe.show");
+Route::get('/recipe/create', [RecipeController::class, 'create'])->name("recipe.create");
+Route::post('/recipe/create', [RecipeController::class, 'store'])->name("recipe.store");
+Route::get('/recipe/{id}/edit', [RecipeController::class, 'edit'])->name("recipe.edit");
+Route::put('/recipe/{id}/update', [RecipeController::class, 'update'])->name("recipe.update");
+Route::delete('/menu', [RecipeController::class, 'destroy'])->name("recipe.destroy");
+
+Route::get('/ingredients', [IngredientController::class, 'index'])->name("ingredient.index");
+Route::get('/ingredient/{id}', [IngredientController::class, 'show'])->name("ingredient.show");
+Route::post('/ingredient/create', [IngredientController::class, 'store'])->name("ingredient.store");
+Route::get('/ingredient/{id}/edit', [IngredientController::class, 'edit'])->name("ingredient.edit");
+Route::put('/ingredient/{id}/update', [IngredientController::class, 'update'])->name("ingredient.update");
+Route::delete('/ingredients', [IngredientController::class, 'destroy'])->name("ingredient.destroy");
 
 Route::get('/connection', [UsersController::class, 'connection'])->name("users.connection");
 Route::get('/create-account', [UsersController::class, 'create_account'])->name("users.create_account");

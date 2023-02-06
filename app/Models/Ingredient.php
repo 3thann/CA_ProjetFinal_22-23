@@ -13,7 +13,7 @@ class Ingredient extends Model
 
     protected $fillable = ['name', 'stock'];
 
-    public function recipeingredient() 
+    public function recipeingredient()
     {
         return $this->hasMany(RecipeIngredient::class, "ingredient_id");
     }

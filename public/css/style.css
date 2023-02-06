@@ -46,7 +46,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
 
-body {
+body, .body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;

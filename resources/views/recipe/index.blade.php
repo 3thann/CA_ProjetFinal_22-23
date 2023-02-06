@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('../layout.app')
 
 @section('content')
 
@@ -15,7 +15,6 @@
     </div>
     <!-- Page Header End -->
 
-
     <!-- Menu Start -->
     <div class="container-fluid pt-5">
         <div class="container">
@@ -29,7 +28,7 @@
                 @foreach($recipes as $recipe)
 
                     <div class="box-perso">
-                        <a href="{{ route('menu.recipe', $recipe->id) }}" style="text-decoration: none;">
+                        <a href="{{ route('recipe.show', $recipe->id) }}" style="text-decoration: none;">
                         <div class="box-burger border-menu case-burger text-center">
                             <img class="w-perso" src="img/{{ $recipe->image }}" alt="">
                             <div>

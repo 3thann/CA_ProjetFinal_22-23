@@ -8,7 +8,7 @@
             <div class="d-inline-flex mb-lg-5">
                 <p class="m-0 text-white"><a class="text-white" href="{{ route('generics.index') }}">Home</a></p>
                 <p class="m-0 text-white px-2">/</p>
-                <p class="m-0 text-white"><a class="text-white" href="{{ route('menu.menu') }}">Menu</a></p>
+                <p class="m-0 text-white"><a class="text-white" href="{{ route('recipe.index') }}">Menu</a></p>
                 <p class="m-0 text-white px-2">/</p>
                 <p class="m-0 text-white">{{ $recipeingredient[0]->recipe->name }}</p>
             </div>
@@ -33,14 +33,21 @@
                       <a><h5>Liste d'ingrédients <i class="fas fa-angle-down"></i></h5></a>
                       <div class="menu-ingredient-content">
 
-                        @foreach ($recipeingredient as $item)
-                            <a>{{ $item->ingredient->name }}</a>
+                        @foreach ($recipeingredient as $ingredients)
+                            <a>{{ $ingredients->ingredient->name }}</a>
                         @endforeach
                       </div>
                     </div>
                 </span>
             </div>
-            <form action="{{ route('menu.destroy', $recipeingredient[0]->recipe->id) }}" class="mb-5" method="POST">
+
+            <form action="{{ route('recipe.edit', $recipeingredient[0]->recipe->id) }}" class="mb-5" method="GET">
+                @csrf
+                <input type="hidden" name="recipe_id" value="{{ $recipeingredient[0]->recipe->id }}">
+                <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">Edit recipe</button>
+            </form>
+
+            <form action="{{ route('recipe.destroy', $recipeingredient[0]->recipe->id) }}" class="mb-5" method="POST">
                 @csrf
                 @method("delete")
                 <input type="hidden" name="recipe_id" value="{{ $recipeingredient[0]->recipe->id }}">

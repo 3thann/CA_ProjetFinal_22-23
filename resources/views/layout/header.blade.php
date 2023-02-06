@@ -11,7 +11,7 @@
             <div class="navbar-nav ml-auto p-4">
                 <a href="{{ route('generics.index') }}" class="nav-item nav-link">Home</a>
                 <a href="{{ route('generics.about') }}" class="nav-item nav-link">About</a>
-                <a href="{{ route('menu.menu') }}" class="nav-item nav-link">Menu</a>
+                <a href="{{ route('recipe.index') }}" class="nav-item nav-link">Menu</a>
                 <a href="{{ route('generics.reservation') }}" class="nav-item nav-link">Reservation</a>
                 <a href="{{ route('generics.contact') }}" class="nav-item nav-link">Contact</a>
                 <a href="{{ route('users.connection') }}" class="nav-item nav-link">My account</a>
