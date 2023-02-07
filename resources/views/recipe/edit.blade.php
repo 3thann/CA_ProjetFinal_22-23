@@ -22,7 +22,9 @@
             <div class="col-lg-6">
                 <div class="text-center p-5" style="background: rgba(51, 33, 29, .8);">
                     <h1 class="text-white mb-4 mt-5">Edit your recipe :</h1>
-                    {{ $count_ingredient = 0 }}
+                    @php
+                        $count_ingredient = 0;
+                    @endphp
                     <form action="{{ route('recipe.update', $recipeingredient[0]->recipe_id) }}" class="mb-5" method="POST">
                         @csrf
                         @method("PUT")
@@ -37,12 +39,22 @@
                                     @foreach ($ingredients as $ingredient)
                                         <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
                                     @endforeach
+                                    <option value="">None</option>
                                 </select>
                                 <input type="text" class="form-control bg-transparent border-primary p-4" name="{{ "quantity" . strval($count_ingredient) }}"
                                 value="{{ $r_ingredient->quantity }}" required="required" />
                             </div>
-                            {{ $count_ingredient++ }}
+                            @php
+                                $count_ingredient++;
+                            @endphp
                         @endforeach
+                        <div class="form-group group-create-recipe">
+                            <input type="text" class="form-control bg-transparent border-primary p-4" id="nb_ingredient" name="nb_ingredient" 
+                                placeholder="Add ingredients" />
+                            <button class="btn btn-primary btn-block font-weight-bold py-3" type="button" style="height: 50px;" 
+                                onclick="createIngredientField({{ $ingredients }}, {{ $count_ingredient }});">Generate the fields</button>
+                        </div>
+                        <div id="ingredient"></div>
                         <div class="form-group">
                             <input type="text" class="form-control bg-transparent border-primary p-4" name="price" 
                             value="{{ $recipeingredient[0]->recipe->price }}" required="required" />
@@ -71,5 +83,44 @@
 </div>
 <!-- Menu End -->
 
+<script>
+    function createIngredientField(ingredients, count_ingredient) {
+        var field = document.getElementById("nb_ingredient");
+        var nb_ingredient = field.value;
+        for (var i = 0; i < nb_ingredient; i++) {
+            var div = document.createElement("div");
+            div.classList.add("form-group", "group-create-recipe");
+
+            var select = document.createElement("select");
+            select.classList.add("custom-select", "bg-transparent", "border-primary", "px-4");
+            select.setAttribute("name", "ingredient_id" + count_ingredient);
+            select.style.height = "50px";
+
+            var option = document.createElement("option");
+            option.text = "Choose an ingredient.";
+            option.value = null;
+            select.add(option);
+            div.appendChild(select);
+
+            ingredients.forEach(ingredient => {
+                var option = document.createElement("option");
+                option.text = ingredient["name"];
+                option.value = ingredient["id"];
+                select.add(option);
+                div.appendChild(select);
+            });
+
+            var input = document.createElement("input");
+            input.setAttribute("type", "text");
+            input.setAttribute("name", "quantity" + count_ingredient);
+            input.setAttribute("placeholder", "Quantity");
+            input.classList.add("form-control", "bg-transparent", "border-primary", "p-4");
+            div.appendChild(input);
+            document.getElementById("ingredient").appendChild(div);
+
+            count_ingredient++;
+        }
+    }
+</script>
 
 @endsection

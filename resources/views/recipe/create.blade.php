@@ -1,4 +1,4 @@
-@extends('../layout.app')
+@extends('layout.app')
 
 @section('content')
 
@@ -22,16 +22,17 @@
             <div class="col-lg-6">
                 <div class="text-center p-5" style="background: rgba(51, 33, 29, .8);">
                     <h1 class="text-white mb-4 mt-5">Create your recipe</h1>
-                    <form action="{{ route('menu.create') }}" class="mb-5" method="POST">
+                    <form action="{{ route('recipe.store') }}" class="mb-5" method="POST">
                         @csrf
                         <div class="form-group">
                             <input type="text" class="form-control bg-transparent border-primary p-4" name="name" placeholder="Name"
                                 required="required" />
                         </div>
                         <div class="form-group group-create-recipe">
-                            <input type="text" class="form-control bg-transparent border-primary p-4" id="nb_ingredient" name="nb_ingredient" placeholder="Number of ingredients"
-                                required="required" />
-                            <button class="btn btn-primary btn-block font-weight-bold py-3" type="button" style="height: 50px;" onclick="createIngredientField({{ $ingredients }});">Generate the fields</button>
+                            <input type="text" class="form-control bg-transparent border-primary p-4" id="nb_ingredient" name="nb_ingredient" 
+                                placeholder="Number of ingredients" required="required" />
+                            <button class="btn btn-primary btn-block font-weight-bold py-3" type="button" style="height: 50px;" 
+                                onclick="createIngredientField({{ $ingredients }});">Generate the fields</button>
                         </div>
                         <div id="ingredient"></div>
                         <div class="form-group">
@@ -53,7 +54,7 @@
                             <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">Create recipe</button>
                         </div>
                         <div class="form-group">
-                            <p style='padding-top: 20px'><a href="{{ route('menu.menu') }}">Cancel</a>.</p>
+                            <p style='padding-top: 20px'><a href="{{ route('recipe.index') }}">Cancel</a>.</p>
                         </div>
                     </form>
                 </div>
@@ -70,7 +71,7 @@
         for (var i = 0; i < nb_ingredient; i++) {
             var div = document.createElement("div");
             div.classList.add("form-group", "group-create-recipe");
-            
+            console.log("ingredient_id" + i);
             var select = document.createElement("select");
             select.classList.add("custom-select", "bg-transparent", "border-primary", "px-4");
             select.setAttribute("name", "ingredient_id" + i);
@@ -82,14 +83,12 @@
             select.add(option);
             div.appendChild(select);
 
-            let x = 1;
             ingredients.forEach(ingredient => {
                 var option = document.createElement("option");
                 option.text = ingredient["name"];
-                option.value = x;
+                option.value = ingredient["id"];
                 select.add(option);
                 div.appendChild(select);
-                x += 1;
             });
 
             var input = document.createElement("input");

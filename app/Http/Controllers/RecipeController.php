@@ -9,21 +9,31 @@ use App\Models\Ingredient;
 
 class RecipeController extends Controller
 {
+    public function menu()
+    {
+        $recipes = Recipe::all();
+
+        return view('recipe.menu', compact("recipes"));
+    }
+
     public function index()
     {
         $recipes = Recipe::all();
+
         return view('recipe.index', compact("recipes"));
     }
 
     public function show($id)
     {
         $recipeingredient = RecipeIngredient::with("recipe", "ingredient")->where('recipe_id', $id)->get();
+
         return view('recipe.show', compact("recipeingredient"));
     }
 
     public function create()
     {
         $ingredients = Ingredient::all();
+
         return view('recipe.create', compact("ingredients"));
     }
 
@@ -46,6 +56,7 @@ class RecipeController extends Controller
             $recipeingredient->save();
             $recipeingredient = null;
         }
+
         return redirect()->route('recipe.index');
     }
 
@@ -53,6 +64,7 @@ class RecipeController extends Controller
     {
         $recipeingredient = RecipeIngredient::with("recipe", "ingredient")->where('recipe_id', $id)->get();
         $ingredients = Ingredient::all();
+
         return view('recipe.edit', compact("recipeingredient", "ingredients"));
     }
 
@@ -65,15 +77,18 @@ class RecipeController extends Controller
         $recipe->top_recipes = $request->get('top_recipes');
         $recipe->save();
 
-        // for($n=0; $n<$nb_ingredient; $n++){ 
-        //     $recipeingredient = new RecipeIngredient();
-        //     $recipeingredient->quantity = $request->get('quantity' . strval($n));
-        //     $recipeingredient->ingredient_id = $request->get('ingredient_id' . strval($n));
-        //     $recipeingredient->recipe_id = $recipe->id;
-        //     $recipeingredient->save();
-        //     $recipeingredient = null;
-        // -> nb_ingredient = count(recipe->recipeingregient) + nb_changement valeur
-        // }
+        $nb_ingredient = count(RecipeIngredient::where('recipe_id', $id)->get()) + $request->get('nb_ingredient');
+
+        RecipeIngredient::where('recipe_id', $id)->delete();
+
+        for($n=0; $n<$nb_ingredient; $n++){ 
+            $recipeingredient = new RecipeIngredient();
+            $recipeingredient->recipe_id = $recipe->id;
+            $recipeingredient->ingredient_id = $request->get('ingredient_id' . strval($n));
+            $recipeingredient->quantity = $request->get('quantity' . strval($n));
+            $recipeingredient->save();
+            $recipeingredient = null;
+        }
 
         return redirect()->route("recipe.index");
     }
@@ -82,6 +97,7 @@ class RecipeController extends Controller
     {
         RecipeIngredient::where('recipe_id', $request->get('recipe_id'))->delete();
         Recipe::destroy($request->get("recipe_id"));
+
         return redirect()->route("recipe.index");
     }
 }

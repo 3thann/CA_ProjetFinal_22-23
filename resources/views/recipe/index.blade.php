@@ -1,4 +1,4 @@
-@extends('../layout.app')
+@extends('layout.app')
 
 @section('content')
 
@@ -20,29 +20,44 @@
         <div class="container">
             <div class="section-title">
                 <h4 class="text-primary text-uppercase text-spacing-title">Menu</h4>
-                <h1 class="display-4">Our burgers</h1>
+                <h1 class="display-4">Recipes</h1>
             </div>
 
-            <div class="box-menu">
+            <table border="1" class="table-ingredients">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($recipes as $recipe)
+                        <tr>
+                            <td>{{ $recipe->name }}</td>
+                            <td>{{ $recipe->price }}</td>
+                            <td class="d-flex justify-content-around">
+                                <a href="{{ route('recipe.show', $recipe->id) }}" class="btn-admin"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('recipe.edit', $recipe->id) }}" class="btn-admin"><i class="fas fa-edit"></i></a>
+                                <form action="{{ route('recipe.destroy', $recipe->id) }}" method="POST">
+                                    @method("delete")
+                                    @csrf
+                                    <input type="hidden" name="recipe_id" value="{{ $recipe->id }}">
+                                    <button class="btn-admin">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
 
-                @foreach($recipes as $recipe)
+            <form action="{{ route('recipe.create') }}" class="mb-5 pt-3" method="GET">
+                @csrf
+                <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">Create recipe</button>
+            </form>
 
-                    <div class="box-perso">
-                        <a href="{{ route('recipe.show', $recipe->id) }}" style="text-decoration: none;">
-                        <div class="box-burger border-menu case-burger text-center">
-                            <img class="w-perso" src="img/{{ $recipe->image }}" alt="">
-                            <div>
-                                <h4>{{ $recipe->name }}</h4>
-                                <p>{{ $recipe->price }}€</p>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                <br>
-
-                @endforeach
-
-            </div>
         </div>
     </div>
     <!-- Menu End -->
