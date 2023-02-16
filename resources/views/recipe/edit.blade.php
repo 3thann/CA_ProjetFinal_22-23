@@ -1,126 +1,140 @@
-@extends('../layout.app')
+@extends('layouts.app')
 
 @section('content')
 
-<!-- Page Header Start -->
-<div class="container-fluid page-header mb-5 position-relative overlay-bottom">
-    <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
-        <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Menu</h1>
-        <div class="d-inline-flex mb-lg-5">
-            <p class="m-0 text-white"><a class="text-white" href="{{ route('generics.index') }}">Home</a></p>
-            <p class="m-0 text-white px-2">/</p>
-            <p class="m-0 text-white">Menu</p>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 pt-3 text-gray-800">Recipes</h1>
+    <p class="mb-4 pt-3">Edit {{ $recipe->name }}</p>
+    <form action="{{ route('recipe.update', $recipe->id)}}" method="POST" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        @method("PUT")
+        @csrf
+        <div class="input-group">
+            <input type="text" name="name" class="form-control bg-light border small" placeholder="Change name" aria-label="Search" aria-describedby="basic-addon2" value="{{ $recipe->name }}">
         </div>
-    </div>
-</div>
-<!-- Page Header End -->
+        <div class="input-group">
+            <input type="text" name="price" class="form-control bg-light border small" placeholder="Change price" aria-label="Search" aria-describedby="basic-addon2" value="{{ $recipe->price }}">
+        </div>
 
-<!-- Menu Start -->
-<div class="container-fluid py-5">
-    <div class="container">
-        <div class="reservation position-relative overlay-top overlay-bottom">
-            <div class="col-lg-6">
-                <div class="text-center p-5" style="background: rgba(51, 33, 29, .8);">
-                    <h1 class="text-white mb-4 mt-5">Edit your recipe :</h1>
-                    @php
-                        $count_ingredient = 0;
-                    @endphp
-                    <form action="{{ route('recipe.update', $recipeingredient[0]->recipe_id) }}" class="mb-5" method="POST">
-                        @csrf
-                        @method("PUT")
-                        <div class="form-group">
-                            <input type="text" class="form-control bg-transparent border-primary p-4" name="name" 
-                            value="{{ $recipeingredient[0]->recipe->name }}" required="required" />
-                        </div>
-                        @foreach ($recipeingredient as $r_ingredient)
-                            <div class="form-group group-create-recipe">
-                                <select class="custom-select bg-transparent border-primary px-4" style="height: 50px;" name="{{ "ingredient_id" . strval($count_ingredient) }}">
-                                    <option value="{{ $r_ingredient->ingredient->id }}">{{ $r_ingredient->ingredient->name }}</option>
-                                    @foreach ($ingredients as $ingredient)
-                                        <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
-                                    @endforeach
-                                    <option value="">None</option>
-                                </select>
-                                <input type="text" class="form-control bg-transparent border-primary p-4" name="{{ "quantity" . strval($count_ingredient) }}"
-                                value="{{ $r_ingredient->quantity }}" required="required" />
-                            </div>
-                            @php
-                                $count_ingredient++;
-                            @endphp
-                        @endforeach
-                        <div class="form-group group-create-recipe">
-                            <input type="text" class="form-control bg-transparent border-primary p-4" id="nb_ingredient" name="nb_ingredient" 
-                                placeholder="Add ingredients" />
-                            <button class="btn btn-primary btn-block font-weight-bold py-3" type="button" style="height: 50px;" 
-                                onclick="createIngredientField({{ $ingredients }}, {{ $count_ingredient }});">Generate the fields</button>
-                        </div>
-                        <div id="ingredient"></div>
-                        <div class="form-group">
-                            <input type="text" class="form-control bg-transparent border-primary p-4" name="price" 
-                            value="{{ $recipeingredient[0]->recipe->price }}" required="required" />
-                        </div>
-                        <div class="form-group">
-                            <select class="custom-select bg-transparent border-primary px-4" style="height: 50px;" name="top_recipes">
-                                <option value="{{ $recipeingredient[0]->recipe->top_recipes }}">Top recipe : {{ $recipeingredient[0]->recipe->top_recipes }}</option>
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <input type="file" class="form-control bg-transparent border-primary p-4" name="image" accept="image/png, image/jpeg" />
-                        </div>
-                        <div>
-                            <button class="btn btn-primary btn-block font-weight-bold py-3" type="submit">Update recipe</button>
-                        </div>
-                        <div class="form-group">
-                            <p style='padding-top: 20px'><a href="{{ route('recipe.index') }}">Cancel</a>.</p>
-                        </div>
-                    </form>
-                </div>
+        @foreach ($recipe->recipeingredient as $r_recipe)
+
+            <div class="input-group">
+                <select name="recipe_id[]" class="form-control bg-light border small" aria-label="Search" aria-describedby="basic-addon2">
+                    <option value="{{ $r_recipe->ingredient->id }}">{{ $r_recipe->ingredient->name }}</option>
+
+                    @foreach ($ingredients as $ingredient)
+
+                        <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
+
+                    @endforeach
+
+                </select>
+
+                <input type="text" class="form-control bg-light border small" name="quantity[]"
+                value="{{ $r_recipe->quantity }}" required="required" />
+                
+                <button type="button" class="btn btn-danger btn-icon-split remove-line" spellcheck="false">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash"></i>
+                    </span>
+                </button>
             </div>
+
+        @endforeach
+
+        <div id="add-ingredient"></div>
+
+        <div class="input-group">
+            <button type="button" onclick="addIngredientField({{ $ingredients }});" class="btn btn-light btn-icon-split" spellcheck="false">
+                <span class="icon text-white-50">
+                    <i class="fas fa-plus"></i>
+                </span>
+                <span class="text">Add an ingredient</span>
+            </button>
         </div>
-    </div>
+
+        <div class="input-group">
+            <button type="submit" class="btn btn-success btn-icon-split" spellcheck="false">
+                <span class="icon text-white-50">
+                    <i class="fas fa-check"></i>
+                </span>
+                <span class="text">Validate</span>
+            </button>
+    </form>
+    <form action="{{ route('recipe.destroy', $recipe->id) }}" method="POST" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        @method("delete")
+        @csrf
+        <input type="hidden" name="recipe_id" value="{{ $recipe->id }}">
+        <button type="submit" class="btn btn-danger btn-icon-split" spellcheck="false">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-trash"></i>
+                    </span>
+            <span class="text">Delete</span>
+        </button>
+    </form>
+        </div>
 </div>
-<!-- Menu End -->
 
 <script>
-    function createIngredientField(ingredients, count_ingredient) {
-        var field = document.getElementById("nb_ingredient");
-        var nb_ingredient = field.value;
-        for (var i = 0; i < nb_ingredient; i++) {
-            var div = document.createElement("div");
-            div.classList.add("form-group", "group-create-recipe");
 
-            var select = document.createElement("select");
-            select.classList.add("custom-select", "bg-transparent", "border-primary", "px-4");
-            select.setAttribute("name", "ingredient_id" + count_ingredient);
-            select.style.height = "50px";
+    function addIngredientField(ingredients) {
+        var div = document.createElement("div");
+        div.classList.add("input-group");
 
+        var select = document.createElement("select");
+        select.classList.add("form-control", "bg-light", "border", "small");
+        select.setAttribute("name", "ingredient_id[]");
+
+        var option = document.createElement("option");
+        option.text = "Choose an ingredient.";
+        option.value = null;
+        select.add(option);
+
+        ingredients.forEach(ingredient => {
             var option = document.createElement("option");
-            option.text = "Choose an ingredient.";
-            option.value = null;
+            option.text = ingredient["name"];
+            option.value = ingredient["id"];
             select.add(option);
-            div.appendChild(select);
+        });
 
-            ingredients.forEach(ingredient => {
-                var option = document.createElement("option");
-                option.text = ingredient["name"];
-                option.value = ingredient["id"];
-                select.add(option);
-                div.appendChild(select);
-            });
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("name", "quantity[]");
+        input.setAttribute("placeholder", "Quantity");
+        input.classList.add("form-control", "bg-light", "border", "small");
 
-            var input = document.createElement("input");
-            input.setAttribute("type", "text");
-            input.setAttribute("name", "quantity" + count_ingredient);
-            input.setAttribute("placeholder", "Quantity");
-            input.classList.add("form-control", "bg-transparent", "border-primary", "p-4");
-            div.appendChild(input);
-            document.getElementById("ingredient").appendChild(div);
+        var button = document.createElement("button");
+        button.setAttribute("type", "button");
+        button.classList.add("btn", "btn-danger", "btn-icon-split");
 
-            count_ingredient++;
-        }
+        button.addEventListener('click', function(event){
+            event.preventDefault();
+            button.parentNode.remove();
+        })
+
+        var span = document.createElement("span");
+        span.classList.add("icon", "text-white-50");
+
+        var i = document.createElement("i");
+        i.classList.add("fas", "fa-trash");
+
+        span.appendChild(i);
+        button.appendChild(span);
+
+        div.appendChild(select);
+        div.appendChild(input);
+        div.appendChild(button);
+        document.getElementById("add-ingredient").appendChild(div);
     }
+
+    const removeButtons = document.querySelectorAll(".remove-line");
+    removeButtons.forEach(function(button){
+        button.addEventListener('click', function(event){
+            event.preventDefault();
+            button.parentNode.remove();
+        })
+    })
+
 </script>
 
 @endsection

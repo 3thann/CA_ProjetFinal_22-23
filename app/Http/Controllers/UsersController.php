@@ -23,8 +23,6 @@ class UsersController extends Controller
         $account->name = $request->get('name');
         $account->password = bcrypt($request->get('password'));
         $account->email = $request->get('email');
-        $account->phone_number = $request->get('name');
-        $account->is_admin = false;
         $account->save();
 
         return redirect()->route('generics.index');

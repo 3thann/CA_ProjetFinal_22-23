@@ -43,16 +43,15 @@ class RecipeController extends Controller
         $recipe->name = $request->get('name');
         $recipe->image = 'menu-1.jpg';
         $recipe->price = $request->get('price');
-        $recipe->top_recipes = $request->get('top_recipes');
         $recipe->save();
 
-        $nb_ingredient = $request->get('nb_ingredient');
+        $quantity = $request->get("quantity");
 
-        for($n=0; $n<$nb_ingredient; $n++){ 
+        foreach ($request->ingredient_id as $key => $ingredient_id) {
             $recipeingredient = new RecipeIngredient();
-            $recipeingredient->quantity = $request->get('quantity' . strval($n));
-            $recipeingredient->ingredient_id = $request->get('ingredient_id' . strval($n));
             $recipeingredient->recipe_id = $recipe->id;
+            $recipeingredient->ingredient_id = $ingredient_id;
+            $recipeingredient->quantity = $quantity[$key];
             $recipeingredient->save();
             $recipeingredient = null;
         }
@@ -62,10 +61,10 @@ class RecipeController extends Controller
 
     public function edit($id)
     {
-        $recipeingredient = RecipeIngredient::with("recipe", "ingredient")->where('recipe_id', $id)->get();
+        $recipe = Recipe::with("recipeingredient", "recipeingredient.ingredient")->find($id)->first();
         $ingredients = Ingredient::all();
 
-        return view('recipe.edit', compact("recipeingredient", "ingredients"));
+        return view('recipe.edit', compact("recipe", "ingredients"));
     }
 
     public function update(Request $request, $id) 
@@ -77,15 +76,15 @@ class RecipeController extends Controller
         $recipe->top_recipes = $request->get('top_recipes');
         $recipe->save();
 
-        $nb_ingredient = count(RecipeIngredient::where('recipe_id', $id)->get()) + $request->get('nb_ingredient');
-
         RecipeIngredient::where('recipe_id', $id)->delete();
 
-        for($n=0; $n<$nb_ingredient; $n++){ 
+        $quantity = $request->get("quantity");
+
+        foreach ($request->ingredient_id as $key => $ingredient_id) {
             $recipeingredient = new RecipeIngredient();
             $recipeingredient->recipe_id = $recipe->id;
-            $recipeingredient->ingredient_id = $request->get('ingredient_id' . strval($n));
-            $recipeingredient->quantity = $request->get('quantity' . strval($n));
+            $recipeingredient->ingredient_id = $ingredient_id;
+            $recipeingredient->quantity = $quantity[$key];
             $recipeingredient->save();
             $recipeingredient = null;
         }

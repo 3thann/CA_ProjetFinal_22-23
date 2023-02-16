@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->float('price');
             $table->string('image');
-            $table->boolean('top_recipes');
             $table->timestamps();
         });
     }

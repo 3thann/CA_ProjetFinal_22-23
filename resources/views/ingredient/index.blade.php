@@ -1,75 +1,80 @@
-@extends('layout.app')
+@extends('layouts.app')
+
 
 @section('content')
 
-    <!-- Page Header Start -->
-    <div class="container-fluid page-header mb-5 position-relative overlay-bottom">
-        <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
-            <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Menu</h1>
-            <div class="d-inline-flex mb-lg-5">
-                <p class="m-0 text-white"><a class="text-white" href="{{ route('generics.index') }}">Home</a></p>
-                <p class="m-0 text-white px-2">/</p>
-                <p class="m-0 text-white">Menu</p>
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <h1 class="h3 mb-2 pt-3 text-gray-800">Ingredients</h1>
+    <p class="mb-4">To add an ingredient, please fill out the form below:</p>
+    <form action="{{ route('ingredient.store')}}" method="POST" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+        @csrf
+        <div class="input-group">
+            <input type="text" name="name" class="form-control bg-light border small" value="{{old('name')}}" placeholder="Name" aria-label="Search" aria-describedby="basic-addon2">
+
+            <input type="text" name="stock" class="form-control bg-light border small" value="{{old('stock')}}" placeholder="Stock" aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group-append">
+                <button type="submit" class="btn btn-success btn-icon-split" spellcheck="false">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-check"></i>
+                    </span>
+                    <span class="text">Validate</span>
+                </button>
             </div>
         </div>
-    </div>
-    <!-- Page Header End -->
+    </form>
+    {{-- @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif --}}
 
-    <!-- Menu Start -->
-    <div class="container-fluid pt-5">
-        <div class="container">
-            <div class="section-title">
-                <h4 class="text-primary text-uppercase text-spacing-title">Menu</h4>
-                <h1 class="display-4">Ingredients</h1>
-            </div>
+    <div id="content">
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
 
-            <table border="1" class="table-ingredients">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Stock</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($ingredients as $ingredient)
-                        <tr>
-                            <td>{{ $ingredient->name }}</td>
-                            <td>{{ $ingredient->stock }}</td>
-                            <td class="d-flex justify-content-around">
-                                <a href="{{ route('ingredient.show', $ingredient->id) }}" class="btn-admin"><i class="fas fa-eye"></i></a>
-                                <a href="{{ route('ingredient.edit', $ingredient->id) }}" class="btn-admin"><i class="fas fa-edit"></i></a>
-                                <form action="{{ route('ingredient.destroy', $ingredient->id) }}" method="POST">
-                                    @method("delete")
-                                    @csrf
-                                    <input type="hidden" name="ingredient_id" value="{{ $ingredient->id }}">
-                                    <button class="btn-admin">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-            <h4 class="text-perso">Add an ingredient :</h4>
-
-            <form action="{{ route('ingredient.store') }}" class="mb-5" method="POST">
-                @csrf
-                <div class="form-group group-create-recipe">
-                    <input type="text" class="form-control bg-transparent border-primary p-4" name="name" placeholder="Name"
-                        required="required" />
-                    <input type="text" class="form-control bg-transparent border-primary p-4" name="stock" placeholder="Stock"
-                        required="required" />
-                    <div>
-                        <button class="btn btn-primary btn-block font-weight-bold py-3" style="height:50px;" type="submit">Add</button>
-                    </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($ingredients as $ingredient)
+                                <tr>
+                                    <td style="width: 33%;">{{$ingredient->name}}</td>
+                                    <td style="width: 33%;">{{$ingredient->stock}}</td>
+                                    <td class="custom-td">
+                                        <a href="{{ route('ingredient.edit', $ingredient->id) }}" class="btn btn-light btn-icon-split" spellcheck="false">
+                                        <span class="icon text-gray-600">
+                                            <i class="far fa-edit"></i>
+                                        </span>
+                                        <span class="text">Edit</span>
+                                    </a>
+                                        <a href="#" class="btn btn-light btn-icon-split" spellcheck="false">
+                                        <span class="icon text-gray-600">
+                                            <i class="far fa-eye"></i>
+                                        </span>
+                                        <span class="text">Show</span>
+                                    </a></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    {{-- {{ $customers->links('pages.pagination') }} --}}
                 </div>
-            </form>
-
+            </div>
         </div>
     </div>
-    <!-- Menu End -->
+</div>
 
 @endsection
