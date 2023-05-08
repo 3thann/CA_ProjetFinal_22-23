@@ -7,6 +7,29 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
+
+    public function index()
+    {
+        $users = User::all();
+
+        return view('users.index', compact('users'));
+    }
+
+    public function change_role(Request $request)
+    {
+        $user = User::find($request->user_id);
+
+        if ($user->role == 'member') {
+            $user->role = 'admin';
+        } else {
+            $user->role = 'member';
+        }
+
+        $user->save();
+
+        return redirect()->route('users.index');
+    }
+
     public function connection()
     {
         return view('users.connection');
@@ -23,6 +46,7 @@ class UsersController extends Controller
         $account->name = $request->get('name');
         $account->password = bcrypt($request->get('password'));
         $account->email = $request->get('email');
+        $account->role = 'member';
         $account->save();
 
         return redirect()->route('generics.index');

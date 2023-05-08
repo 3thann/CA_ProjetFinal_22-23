@@ -15,6 +15,13 @@ class RecipeController extends Controller
 
         return view('recipe.menu', compact("recipes"));
     }
+    
+    public function info($id)
+    {
+        $recipeingredient = RecipeIngredient::with("recipe", "ingredient")->where('recipe_id', $id)->get();
+
+        return view('recipe.info', compact("recipeingredient"));
+    }
 
     public function index()
     {
@@ -25,7 +32,7 @@ class RecipeController extends Controller
 
     public function show($id)
     {
-        $recipeingredient = RecipeIngredient::with("recipe", "ingredient")->where('recipe_id', $id)->get();
+        $recipeingredient = RecipeIngredient::where('recipe_id', $id)->get();
 
         return view('recipe.show', compact("recipeingredient"));
     }
@@ -61,10 +68,10 @@ class RecipeController extends Controller
 
     public function edit($id)
     {
-        $recipe = Recipe::with("recipeingredient", "recipeingredient.ingredient")->find($id)->first();
+        $recipeingredient = RecipeIngredient::where('recipe_id', $id)->get();
         $ingredients = Ingredient::all();
 
-        return view('recipe.edit', compact("recipe", "ingredients"));
+        return view('recipe.edit', compact("recipeingredient", "ingredients"));
     }
 
     public function update(Request $request, $id) 
@@ -73,7 +80,6 @@ class RecipeController extends Controller
         $recipe->name = $request->get('name');
         $recipe->image = 'menu-1.jpg';
         $recipe->price = $request->get('price');
-        $recipe->top_recipes = $request->get('top_recipes');
         $recipe->save();
 
         RecipeIngredient::where('recipe_id', $id)->delete();

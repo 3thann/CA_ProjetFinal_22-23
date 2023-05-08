@@ -7,7 +7,7 @@
         <div class="d-flex flex-column align-items-center justify-content-center pt-0 pt-lg-5" style="min-height: 400px">
             <h1 class="display-4 mb-3 mt-0 mt-lg-5 text-white text-uppercase">Contact</h1>
             <div class="d-inline-flex mb-lg-5">
-                <p class="m-0 text-white"><a class="text-white" href="{{ route('generics.index') }}">Home</a></p>
+                <p class="m-0 text-white"><a class="text-white" href="{{ route('generics.home') }}">Home</a></p>
                 <p class="m-0 text-white px-2">/</p>
                 <p class="m-0 text-white">Contact</p>
             </div>
@@ -49,31 +49,26 @@
                 <div class="col-md-6 pb-5">
                     <div class="contact-form">
                         <div id="success"></div>
-                        <form name="sentMessage" id="contactForm" novalidate="novalidate">
+                        <form action="{{ route('contact.store') }}" method="POST">
+                            @csrf
                             <div class="control-group">
-                                <input type="text" class="form-control bg-transparent p-4" id="name" placeholder="Your Name"
-                                    required="required" data-validation-required-message="Please enter your name" />
-                                <p class="help-block text-danger"></p>
+                                <input type="text" class="form-control bg-transparent p-4" name="name" placeholder="Your Name"
+                                    required="required"/>
                             </div>
                             <div class="control-group">
-                                <input type="email" class="form-control bg-transparent p-4" id="email" placeholder="Your Email"
-                                    required="required" data-validation-required-message="Please enter your email" />
-                                <p class="help-block text-danger"></p>
+                                <input type="email" class="form-control bg-transparent p-4" name="email" placeholder="Your Email"
+                                    required="required"/>
                             </div>
                             <div class="control-group">
-                                <input type="text" class="form-control bg-transparent p-4" id="subject" placeholder="Subject"
-                                    required="required" data-validation-required-message="Please enter a subject" />
-                                <p class="help-block text-danger"></p>
+                                <input type="text" class="form-control bg-transparent p-4" name="subject" placeholder="Subject"
+                                    required="required"/>
                             </div>
                             <div class="control-group">
-                                <textarea class="form-control bg-transparent py-3 px-4" rows="5" id="message" placeholder="Message"
-                                    required="required"
-                                    data-validation-required-message="Please enter your message"></textarea>
-                                <p class="help-block text-danger"></p>
+                                <textarea class="form-control bg-transparent py-3 px-4" rows="5" name="message" placeholder="Message"
+                                    required="required"></textarea>
                             </div>
                             <div>
-                                <button class="btn btn-primary font-weight-bold py-3 px-5" type="submit" id="sendMessageButton">Send
-                                    Message</button>
+                                <button class="btn btn-primary font-weight-bold py-3 px-5" type="submit">Send Message</button>
                             </div>
                         </form>
                     </div>

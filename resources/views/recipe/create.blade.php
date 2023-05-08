@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout-admin.app')
 
 @section('content')
 
@@ -16,7 +16,7 @@
         </div>
 
         <div class="input-group">
-            <select name="recipe_id[]" class="form-control bg-light border small" aria-label="Search" aria-describedby="basic-addon2">
+            <select name="ingredient_id[]" class="form-control bg-light border small" aria-label="Search" aria-describedby="basic-addon2">
                 <option>Choose an ingredient.</option>
                 @foreach ($ingredients as $ingredient)
                     <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
@@ -34,7 +34,7 @@
         <div id="add-ingredient"></div>
 
         <div class="input-group">
-            <button type="button" onclick="addIngredientField({{ $ingredients }});" class="btn btn-light btn-icon-split" spellcheck="false">
+            <button type="button" onclick="addIngredientField({{ $ingredients }});" class="btn btn-light btn-icon-split border" spellcheck="false">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>

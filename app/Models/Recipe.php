@@ -11,7 +11,7 @@ class Recipe extends Model
 
     protected $table = "recipes";
 
-    protected $fillable = ['name', 'price', 'image', 'top_recipes'];
+    protected $fillable = ['name', 'price', 'image'];
 
     public function recipeingredient() 
     {

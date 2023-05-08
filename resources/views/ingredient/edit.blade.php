@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout-admin.app')
 
 @section('content')
 
@@ -37,5 +37,7 @@
             <span class="text">Delete</span>
         </button>
     </form>
+
+</div>
 
 @endsection

@@ -1,25 +1,24 @@
-@extends('layouts.app')
+@extends('layout-admin.app')
 
 @section('content')
 
 <div class="container-fluid">
     <!-- Page Heading -->
-    <h1 class="h3 mb-2 pt-3 text-gray-800">Recipes</h1>
-    <p class="mb-4 pt-3">Edit {{ $recipe->name }}</p>
-    <form action="{{ route('recipe.update', $recipe->id)}}" method="POST" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <h1 class="h3 mb-2 pt-3 text-gray-800">Edit {{ $recipeingredient[0]->recipe->name }}</h1>
+    <form action="{{ route('recipe.update', $recipeingredient[0]->recipe_id)}}" method="POST" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
         @method("PUT")
         @csrf
         <div class="input-group">
-            <input type="text" name="name" class="form-control bg-light border small" placeholder="Change name" aria-label="Search" aria-describedby="basic-addon2" value="{{ $recipe->name }}">
+            <input type="text" name="name" class="form-control bg-light border small" placeholder="Change name" aria-label="Search" aria-describedby="basic-addon2" value="{{ $recipeingredient[0]->recipe->name }}">
         </div>
         <div class="input-group">
-            <input type="text" name="price" class="form-control bg-light border small" placeholder="Change price" aria-label="Search" aria-describedby="basic-addon2" value="{{ $recipe->price }}">
+            <input type="text" name="price" class="form-control bg-light border small" placeholder="Change price" aria-label="Search" aria-describedby="basic-addon2" value="{{ $recipeingredient[0]->recipe->price }}">
         </div>
 
-        @foreach ($recipe->recipeingredient as $r_recipe)
+        @foreach ($recipeingredient as $r_recipe)
 
             <div class="input-group">
-                <select name="recipe_id[]" class="form-control bg-light border small" aria-label="Search" aria-describedby="basic-addon2">
+                <select name="ingredient_id[]" class="form-control bg-light border small" aria-label="Search" aria-describedby="basic-addon2">
                     <option value="{{ $r_recipe->ingredient->id }}">{{ $r_recipe->ingredient->name }}</option>
 
                     @foreach ($ingredients as $ingredient)
@@ -45,7 +44,7 @@
         <div id="add-ingredient"></div>
 
         <div class="input-group">
-            <button type="button" onclick="addIngredientField({{ $ingredients }});" class="btn btn-light btn-icon-split" spellcheck="false">
+            <button type="button" onclick="addIngredientField({{ $ingredients }});" class="btn btn-light btn-icon-split border" spellcheck="false">
                 <span class="icon text-white-50">
                     <i class="fas fa-plus"></i>
                 </span>
@@ -61,15 +60,12 @@
                 <span class="text">Validate</span>
             </button>
     </form>
-    <form action="{{ route('recipe.destroy', $recipe->id) }}" method="POST" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-        @method("delete")
-        @csrf
-        <input type="hidden" name="recipe_id" value="{{ $recipe->id }}">
+    <form action="{{ route('recipe.index') }}" class="d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
         <button type="submit" class="btn btn-danger btn-icon-split" spellcheck="false">
                     <span class="icon text-white-50">
-                        <i class="fas fa-trash"></i>
+                        <i class="fas fa-times"></i>
                     </span>
-            <span class="text">Delete</span>
+            <span class="text">Cancel</span>
         </button>
     </form>
         </div>
@@ -82,8 +78,8 @@
         div.classList.add("input-group");
 
         var select = document.createElement("select");
-        select.classList.add("form-control", "bg-light", "border", "small");
         select.setAttribute("name", "ingredient_id[]");
+        select.classList.add("form-control", "bg-light", "border", "small");
 
         var option = document.createElement("option");
         option.text = "Choose an ingredient.";

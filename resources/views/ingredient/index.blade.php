@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layout-admin.app')
 
 
 @section('content')
@@ -70,7 +70,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{-- {{ $customers->links('pages.pagination') }} --}}
                 </div>
             </div>
         </div>
